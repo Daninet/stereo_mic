@@ -14,3 +14,7 @@
 | L/R | -           | GND          | 3V3           |
 | WS  | GP09        | WS           | WS            |
 | SCK | GP08        | SCK          | SCK           |
+
+## RP2040 SDK patch needed
+
+- https://github.com/hathach/tinyusb/pull/2937
