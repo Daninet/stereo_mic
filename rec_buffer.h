@@ -3,7 +3,8 @@
 
 #include <stdint.h>
 
+int audio_data_ready();
 void rec_init();
-int16_t* rec_take(uint8_t mute, uint8_t volume);
+uint8_t* rec_take(uint8_t mute, uint8_t volume);
 
 #endif

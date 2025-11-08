@@ -105,6 +105,10 @@ extern "C" {
 // Have a look into audio_device.h for all configurations
 #define CFG_TUD_AUDIO_FUNC_1_SAMPLE_RATE 48000
 
+// #define TUD_AUDIO_DESC_TYPE_I_FORMAT_FIXED_LEN 11
+// #define TUD_AUDIO_DESC_TYPE_I_FORMAT_FIXED(_nChannels, _nBytesPerSample, _nBitsUsedPerSample, _sample_rate) /* _nBytesPerSample is number of bytes per sample (i.e. subslot) and can be 1,2,3, or 4 */ \
+//     TUD_AUDIO_DESC_TYPE_I_FORMAT_FIXED_LEN, TUSB_DESC_CS_INTERFACE, AUDIO_CS_AS_INTERFACE_FORMAT_TYPE, AUDIO_FORMAT_TYPE_I, _nChannels, _nBytesPerSample, _nBitsUsedPerSample, 1 /* bSamFreqType */, /* 3 byte for sample rate LE */ _sample_rate & 0xFF, (_sample_rate >> 8) & 0xFF, (_sample_rate >> 16) & 0xFF
+
 #define TUD_AUDIO_MIC_TWO_CH_DESC_LEN (TUD_AUDIO_DESC_IAD_LEN \
     + TUD_AUDIO_DESC_STD_AC_LEN                               \
     + TUD_AUDIO_DESC_CS_AC_LEN                                \
@@ -143,7 +147,7 @@ extern "C" {
 #define CFG_TUD_AUDIO_FUNC_1_CTRL_BUF_SZ 64
 
 #define CFG_TUD_AUDIO_ENABLE_EP_IN 1
-#define CFG_TUD_AUDIO_FUNC_1_N_BYTES_PER_SAMPLE_TX 2 // This value is not required by the driver, it parses this information from the descriptor once the alternate interface is set by the host - we use it for the setup
+#define CFG_TUD_AUDIO_FUNC_1_N_BYTES_PER_SAMPLE_TX 3 // This value is not required by the driver, it parses this information from the descriptor once the alternate interface is set by the host - we use it for the setup
 #define CFG_TUD_AUDIO_FUNC_1_N_CHANNELS_TX 2 // This value is not required by the driver, it parses this information from the descriptor once the alternate interface is set by the host - we use it for the setup
 #define CFG_TUD_AUDIO_EP_SZ_IN TUD_AUDIO_EP_SIZE(CFG_TUD_AUDIO_FUNC_1_SAMPLE_RATE, CFG_TUD_AUDIO_FUNC_1_N_BYTES_PER_SAMPLE_TX, CFG_TUD_AUDIO_FUNC_1_N_CHANNELS_TX)
 

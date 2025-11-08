@@ -119,7 +119,7 @@ void tud_resume_cb(void)
     blink_interval_ms = tud_mounted() ? BLINK_MOUNTED : BLINK_NOT_MOUNTED;
 }
 
-inline uint8_t is_muted()
+uint8_t is_muted()
 {
     return mute[0] || mute[1] || mute[2];
 }
@@ -127,14 +127,11 @@ inline uint8_t is_muted()
 void audio_task(void)
 {
     static uint32_t start_ms = 0;
-    uint32_t curr_ms = board_millis();
-    if (start_ms == curr_ms)
-        return; // not enough time
-    start_ms = curr_ms;
-
-    int32_t vol = (int32_t)volume[0] * (int32_t)volume[1] / 255;
-    int16_t* buf = rec_take(is_muted(), vol);
-    tud_audio_write_support_ff(0, buf, AUDIO_SAMPLE_RATE / 1000 * CFG_TUD_AUDIO_FUNC_1_N_BYTES_PER_SAMPLE_TX * CFG_TUD_AUDIO_FUNC_1_CHANNEL_PER_FIFO_TX);
+    if (audio_data_ready()) {
+        int32_t vol = ((int32_t)volume[0] * (int32_t)volume[1]) / 255;
+        uint8_t* buf = rec_take(is_muted(), vol);
+        tud_audio_write_support_ff(0, buf, AUDIO_SAMPLE_RATE / 1000 * 3 * 2);
+    }
 }
 
 //--------------------------------------------------------------------+
